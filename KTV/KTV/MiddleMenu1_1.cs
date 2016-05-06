@@ -15,7 +15,7 @@ namespace KTV
     public partial class MiddleMenu1_1 : Form
     {
         private int Inum = 1; 
-        int pagesize = 4;
+        int pagesize = 6;
         int allCount = 0;
         int pagecount = 0;
 
@@ -24,9 +24,16 @@ namespace KTV
         private MySqlConnection conn;
         private MySqlDataAdapter mdap;
 
+        DataGridViewImageColumn btnImageEdit;
+
         public MiddleMenu1_1()
         {
+           
+
             InitializeComponent();
+            dataGridView1.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.RowTemplate.Height = 30;
+            
         }
 
         private void MiddleMenu_Load(object sender, EventArgs e)
@@ -41,11 +48,18 @@ namespace KTV
                 dsall = new DataSet();
                 mdap.Fill(dsall,"go_admin");
                 dataGridView1.DataSource = dsall.Tables["go_admin"];
- 
 
-           
 
-               
+                btnImageEdit = new DataGridViewImageColumn(false);
+                // Image imgEdit = new Bitmap(Properties.Resources.Save, new Size(16, 16));
+                // btnImageEdit.Image = imgEdit;
+                btnImageEdit.Image = Image.FromFile("image/uncheck.ico");
+                //btnImageEdit.Width = 50;
+                btnImageEdit.HeaderText = "添加";
+                btnImageEdit.Name = "btnImageEdit";
+                this.dataGridView1.Columns.Insert(0, btnImageEdit);
+
+
 
                 allCount = dataGridView1.Rows.Count;    //获取数据表中记录的个数
 
@@ -63,7 +77,7 @@ namespace KTV
 
                 this.label1.Text = "共" + pagecount.ToString() + "页";
 
-                show(1, 4);                                                              
+                show(1, pagesize);                                                              
 
               
         }
@@ -81,9 +95,17 @@ namespace KTV
             
             mdap.Fill(ds, "one");
 
-            this.dataGridView1.DataSource = ds.Tables["one"].DefaultView;        
-            ds = null;
+            this.dataGridView1.DataSource = ds.Tables["one"].DefaultView;
 
+
+            //在这里遍历一下数据库，根据选中字段，对已经被选择的歌曲，按钮图片做一下改变
+           
+
+
+
+
+            
+            ds = null;
             this.label2.Text = "第" + Inum.ToString() + "页";
         } 
 
@@ -134,9 +156,35 @@ namespace KTV
                 return;
             }
         }
-        
 
-        
+
+
+       
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int CIndex = e.ColumnIndex;
+            int RIndex = e.RowIndex;
+            String name;
+            String singer;
+            Song song = new Song();
+            if (RIndex>=0)
+            {
+
+
+                name = this.dataGridView1.Rows[RIndex].Cells[1].Value.ToString();
+                singer = this.dataGridView1.Rows[RIndex].Cells[2].Value.ToString();
+                //这里将歌曲加入列表
+                //将数据库里相应的歌曲字段置为选中状态
+
+                song.setName(name);
+                song.setSinger(singer);
+                ListOfSong.songList.Add(song);
+                this.dataGridView1.Rows[RIndex].Cells["btnImageEdit"].Value = Image.FromFile("image/check.ico");
+
+                
+            }
+        }  
 
        
 

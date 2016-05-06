@@ -15,6 +15,7 @@ namespace KTV
         private Video myVideo;
         private Form middleMenu1;
         private Form middleIndex;
+        private Form songToBePlayed;
         private string pathPlayPause;
 
         public Form1()
@@ -23,7 +24,9 @@ namespace KTV
 
             InitializeComponent();
             middleIndex = new MiddleIndex();
+            songToBePlayed = new SongToBePlayed();
             Control_Add(middleIndex);
+            Control_Add2(songToBePlayed);
             doubleBuffer();
            
         }
@@ -128,6 +131,8 @@ namespace KTV
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
+           
+            
             doubleBuffer();
         }
 
@@ -135,7 +140,6 @@ namespace KTV
         {
             pathPlayPause = "image/play.ico";
             pictureBox2.BackgroundImage = Image.FromFile(pathPlayPause);
-            doubleBuffer();
         }
 
         private void panel5_Paint(object sender, PaintEventArgs e)
@@ -177,7 +181,15 @@ namespace KTV
             form.Show();					  //窗体运行
         }
 
-       
+        private void Control_Add2(Form form)
+        {
+            panel4.Controls.Clear();	//移除所有控件
+            form.TopLevel = false;	  //设置为非顶级窗体
+            form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None; //设置窗体为非边框样式
+            form.Dock = System.Windows.Forms.DockStyle.Fill;				  //设置样式是否填充整个panel
+            panel4.Controls.Add(form);		//添加窗体
+            form.Show();					  //窗体运行
+        }
 
         private void label3_Click(object sender, EventArgs e)
         {
