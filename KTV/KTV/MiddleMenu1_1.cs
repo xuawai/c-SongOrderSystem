@@ -20,9 +20,10 @@ namespace KTV
         int pagecount = 0;
 
         private DataSet dsall;
-        private static String mysqlcon = "database=gogo_website;Password=;User ID=root;server=127.0.0.1";
+        //private static String mysqlcon = "database=ktv_project;Password=;User ID=root;server=127.0.0.1";
         private MySqlConnection conn;
         private MySqlDataAdapter mdap;
+        private MySqlCommand mySqlCommand;
 
         DataGridViewImageColumn btnImageEdit;
 
@@ -39,15 +40,16 @@ namespace KTV
         private void MiddleMenu_Load(object sender, EventArgs e)
         {
             this.BackgroundImage = Image.FromFile("image/MiddleMenu1_background.jpg");
-           
 
-           
-              
-                conn = new MySqlConnection(mysqlcon);
-                mdap = new MySqlDataAdapter("select * from go_admin",conn);
-                dsall = new DataSet();
-                mdap.Fill(dsall,"go_admin");
-                dataGridView1.DataSource = dsall.Tables["go_admin"];
+
+
+
+            conn = Database.getMySqlCon();
+            conn.Open();
+            mdap = new MySqlDataAdapter("select * from ktv_song",conn);
+            dsall = new DataSet();
+                mdap.Fill(dsall,"ktv_song");
+                dataGridView1.DataSource = dsall.Tables["ktv_song"];
 
 
                 btnImageEdit = new DataGridViewImageColumn(false);
@@ -88,7 +90,7 @@ namespace KTV
             
 
            // mdap = new MySqlDataAdapter("select top "+pagesize+" * from go_admin where id not in (select top "+pagesize*(Inum-1)+" id from go_admin)",conn);
-            mdap = new MySqlDataAdapter("select id,username from go_admin order by id limit " + pagesize * (Inum - 1)+","+pagesize, conn);
+            mdap = new MySqlDataAdapter("select name,singer from ktv_song order by id limit " + pagesize * (Inum - 1)+","+pagesize, conn);
 
             DataSet ds = new DataSet();  
  
@@ -99,12 +101,21 @@ namespace KTV
 
 
             //在这里遍历一下数据库，根据选中字段，对已经被选择的歌曲，按钮图片做一下改变
-           
+            String sql = "select status from ktv_song order by id limit " + pagesize * (Inum - 1) + "," + pagesize;
+            mySqlCommand = Database.getSqlCommand(sql, conn);
+            List<Int32> list = Database.getResultCheck(mySqlCommand);
+            for (int i = 0; i < list.Count; i++)
+            {
+                if(list[i]==0)
+                    this.dataGridView1.Rows[i].Cells["btnImageEdit"].Value = Image.FromFile("image/uncheck.ico");
+                else
+                    this.dataGridView1.Rows[i].Cells["btnImageEdit"].Value = Image.FromFile("image/check.ico");
+            }
 
 
 
 
-            
+            list = null;
             ds = null;
             this.label2.Text = "第" + Inum.ToString() + "页";
         } 
@@ -167,7 +178,7 @@ namespace KTV
             int RIndex = e.RowIndex;
             String name;
             String singer;
-            Song song = new Song();
+            //Song song = new Song();
             if (RIndex>=0)
             {
 
@@ -177,9 +188,18 @@ namespace KTV
                 //这里将歌曲加入列表
                 //将数据库里相应的歌曲字段置为选中状态
 
-                song.setName(name);
-                song.setSinger(singer);
-                ListOfSong.songList.Add(song);
+                String sql = "select * from ktv_song where name = '"+name+"' and singer = '"+singer+"'";
+                //String sql = "select * from ktv_song where singer = '周杰伦'";
+                mySqlCommand = Database.getSqlCommand(sql,conn);
+                Database.getResultset(mySqlCommand);
+
+                sql = "update ktv_song set status = 1 where name = '" + name + "' and singer = '" + singer + "'";
+                mySqlCommand = Database.getSqlCommand(sql, conn);
+                Database.updateStatus(mySqlCommand);
+
+                //song.setName(name);
+                //song.setSinger(singer);
+                //ListOfSong.songList.Add(song);
                 this.dataGridView1.Rows[RIndex].Cells["btnImageEdit"].Value = Image.FromFile("image/check.ico");
 
                 

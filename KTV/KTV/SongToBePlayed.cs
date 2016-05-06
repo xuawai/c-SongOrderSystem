@@ -16,7 +16,7 @@ namespace KTV
         int allCount = 0;
         int pagecount = 0;
 
-        int preAllCount;
+        int preAllCount = 0;
 
         public SongToBePlayed()
         {
