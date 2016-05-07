@@ -19,6 +19,8 @@ namespace KTV
         int allCount = 0;
         int pagecount = 0;
 
+        private int preAllCount;
+
         private DataSet dsall;
         //private static String mysqlcon = "database=ktv_project;Password=;User ID=root;server=127.0.0.1";
         private MySqlConnection conn;
@@ -26,6 +28,8 @@ namespace KTV
         private MySqlCommand mySqlCommand;
 
         DataGridViewImageColumn btnImageEdit;
+
+        private String condition;
 
         public MiddleMenu1_1()
         {
@@ -46,21 +50,20 @@ namespace KTV
 
             conn = Database.getMySqlCon();
             conn.Open();
-            mdap = new MySqlDataAdapter("select * from ktv_song",conn);
-            dsall = new DataSet();
-                mdap.Fill(dsall,"ktv_song");
-                dataGridView1.DataSource = dsall.Tables["ktv_song"];
+            mdap = new MySqlDataAdapter("select name,singer from ktv_song", conn);
+            DataSet ds = new DataSet();
+            mdap.Fill(ds, "one");
+            this.dataGridView1.DataSource = ds.Tables["one"].DefaultView;
 
 
                 btnImageEdit = new DataGridViewImageColumn(false);
-                // Image imgEdit = new Bitmap(Properties.Resources.Save, new Size(16, 16));
-                // btnImageEdit.Image = imgEdit;
-                btnImageEdit.Image = Image.FromFile("image/uncheck.ico");
-                //btnImageEdit.Width = 50;
+                btnImageEdit.Image = Image.FromFile("image/uncheck.ico");                
                 btnImageEdit.HeaderText = "添加";
                 btnImageEdit.Name = "btnImageEdit";
                 this.dataGridView1.Columns.Insert(0, btnImageEdit);
 
+
+               
 
 
                 allCount = dataGridView1.Rows.Count;    //获取数据表中记录的个数
@@ -79,29 +82,26 @@ namespace KTV
 
                 this.label1.Text = "共" + pagecount.ToString() + "页";
 
-                show(1, pagesize);                                                              
-
-              
+                show(1, pagesize);
+                
+               
         }
 
           
         private void show(int Inum,int pagesize)
         {
             
-
-           // mdap = new MySqlDataAdapter("select top "+pagesize+" * from go_admin where id not in (select top "+pagesize*(Inum-1)+" id from go_admin)",conn);
-            mdap = new MySqlDataAdapter("select name,singer from ktv_song order by id limit " + pagesize * (Inum - 1)+","+pagesize, conn);
+            mdap = new MySqlDataAdapter("select name,singer from ktv_song where name like '%"+condition+"%' order by id limit " + pagesize * (Inum - 1)+","+pagesize, conn);
 
             DataSet ds = new DataSet();  
- 
-            
+         
             mdap.Fill(ds, "one");
 
             this.dataGridView1.DataSource = ds.Tables["one"].DefaultView;
 
 
             //在这里遍历一下数据库，根据选中字段，对已经被选择的歌曲，按钮图片做一下改变
-            String sql = "select status from ktv_song order by id limit " + pagesize * (Inum - 1) + "," + pagesize;
+            String sql = "select status from ktv_song where name like '%" + condition + "%' order by id limit " + pagesize * (Inum - 1) + "," + pagesize;
             mySqlCommand = Database.getSqlCommand(sql, conn);
             List<Int32> list = Database.getResultCheck(mySqlCommand);
             for (int i = 0; i < list.Count; i++)
@@ -200,11 +200,46 @@ namespace KTV
                 //song.setName(name);
                 //song.setSinger(singer);
                 //ListOfSong.songList.Add(song);
+                
                 this.dataGridView1.Rows[RIndex].Cells["btnImageEdit"].Value = Image.FromFile("image/check.ico");
 
-                
+                preAllCount = ListOfSong.songList.Count;
             }
-        }  
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            condition = textBox1.Text;
+            show(1, pagesize);
+           
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            pictureBox1_Click(sender,e);
+            timer1.Enabled = false;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if (preAllCount > ListOfSong.songList.Count)
+            {
+                preAllCount = ListOfSong.songList.Count;
+                pictureBox1_Click(sender, e);
+            }
+        }
+
+    
 
        
 

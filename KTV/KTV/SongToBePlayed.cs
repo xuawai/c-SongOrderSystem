@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace KTV
 {
@@ -15,8 +16,14 @@ namespace KTV
         int pagesize = 4;
         int allCount = 0;
         int pagecount = 0;
-
         int preAllCount = 0;
+
+        private MySqlConnection conn;
+        private MySqlDataAdapter mdap;
+        private MySqlCommand mySqlCommand;
+
+        DataGridViewImageColumn btnImageTop;
+        DataGridViewImageColumn btnImageDelete;
 
         public SongToBePlayed()
         {
@@ -31,26 +38,47 @@ namespace KTV
         {
             if (preAllCount == ListOfSong.songList.Count)
                 return;
-            else
+            else if (preAllCount < ListOfSong.songList.Count)
             {
                 preAllCount = ListOfSong.songList.Count;
-                showIndex();
+                showIndex(1);//增添
             }
-            //if(ListOfSong.songList.Count!=0)
-                //label1.Text =  ListOfSong.songList[ListOfSong.songList.Count-1].getName();
+            else if (preAllCount > ListOfSong.songList.Count)
+            {
+                preAllCount = ListOfSong.songList.Count;
+                showIndex(2);//删除
+            }
+           
         }
 
         private void SongToBePlayed_Load(object sender, EventArgs e)
         {
             this.BackgroundImage = Image.FromFile("image/MiddleMenu1_background.jpg");
 
-            
+            conn = Database.getMySqlCon();
+            conn.Open();
 
 
+            btnImageTop = new DataGridViewImageColumn(false);
+            btnImageTop.Image = Image.FromFile("image/top.ico");
+            btnImageTop.HeaderText = "置顶";
+            btnImageTop.Name = "btnImageTop";           
+            this.dataGridView1.Columns.Insert(2, btnImageTop);
+
+            this.dataGridView1.Columns[2].Width = 32;
+
+
+            btnImageDelete = new DataGridViewImageColumn(false);
+            btnImageDelete.Image = Image.FromFile("image/delete.ico");
+            btnImageDelete.HeaderText = "置顶";
+            btnImageDelete.Name = "btnImageDelete";
+            this.dataGridView1.Columns.Insert(3, btnImageDelete);
+
+            this.dataGridView1.Columns[3].Width = 32;
             
         }
 
-        public void showIndex()
+        public void showIndex(int type)
         {
             allCount = ListOfSong.songList.Count;    //获取数据表中记录的个数
 
@@ -69,14 +97,24 @@ namespace KTV
                 }
 
                 this.label1.Text = "共" + pagecount.ToString() + "页";
-                if (allCount <= pagesize)
-                    show(1, pagesize);
-                else
+                if (type == 1)
+                    show(pagecount, pagesize);
+                else if (type == 2)
                 {
-                  
-                    show(pagecount,pagesize);
-                   
+                    if (allCount % pagesize == 0 && Inum==pagecount+1)
+                        show(pagecount, pagesize);
+                    else
+                        show(Inum,pagesize);
                 }
+                else if (type == 3)
+                    show(Inum, pagesize);
+                   
+                
+            }
+            else
+            {
+                this.label1.Text = "共0页";
+                show(1, 0);
             }
          
         }
@@ -89,7 +127,7 @@ namespace KTV
             if ((allCount - startIndex) <= pagesize)
                 showCount = (allCount - startIndex);
             else
-                showCount = 6;
+                showCount = pagesize;
 
             for (int i = dataGridView1.Rows.Count-1; i >=0; i--)
                      dataGridView1.Rows.RemoveAt(i);
@@ -158,6 +196,44 @@ namespace KTV
                 return;
             }
         }
+
+     
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            int CIndex = e.ColumnIndex;
+            int RIndex = e.RowIndex;
+            int index = (Inum - 1) * pagesize + RIndex;
+            String name;
+            String singer;
+            //删除
+            if (CIndex == 3)
+            {
+                name = this.dataGridView1.Rows[RIndex].Cells[0].Value.ToString();
+                singer = this.dataGridView1.Rows[RIndex].Cells[1].Value.ToString();
+
+                //从列表中删去        
+                ListOfSong.songList.RemoveAt(index);
+
+                //从数据库中把相应歌曲设置为未选择状态
+                String sql = "update ktv_song set status = 0 where name = '" + name + "' and singer = '" + singer + "'";
+                mySqlCommand = Database.getSqlCommand(sql, conn);
+                Database.updateStatus(mySqlCommand);
+            }
+            //置顶
+            else
+            {
+                Song song = new Song();
+                song = ListOfSong.songList[index];
+                //从列表中删去        
+                ListOfSong.songList.RemoveAt(index);
+                //置顶       
+                ListOfSong.songList.Insert(0,song);
+                showIndex(3);
+            }
+        }
+
+      
 
        
 
