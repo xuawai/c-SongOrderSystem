@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.DirectX.AudioVideoPlayback;
+using MySql.Data.MySqlClient;
 
 namespace KTV
 {
@@ -17,16 +18,31 @@ namespace KTV
         private Form middleIndex;
         private Form songToBePlayed;
         private string pathPlayPause;
+        private int firstSongPlayed;        //等于零，表示歌单为空或者第一首歌还未播放
 
+        private int volume = -1000;
+        private double lastCurrentPosition = -1;
+        private double latestCurrentPosition = 0;
+        private Song currentSong;
+
+        private MySqlConnection conn;
+        private MySqlCommand mySqlCommand;
         public Form1()
         {
            
 
             InitializeComponent();
+
             middleIndex = new MiddleIndex();
             songToBePlayed = new SongToBePlayed();
             Control_Add(middleIndex);
             Control_Add2(songToBePlayed);
+
+            currentSong = new Song();
+
+            conn = Database.getMySqlCon();
+            conn.Open();
+
             doubleBuffer();
            
         }
@@ -55,6 +71,7 @@ namespace KTV
         {
             
             this.BackgroundImage = Image.FromFile("image/background.jpg");
+            
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -64,38 +81,76 @@ namespace KTV
 
        
 
-        private void pictureBox4_Click(object sender, EventArgs e)
+        private void playCurrentSong(object sender, EventArgs e)   //播放当前列表第一首歌
         {
+            ;
+
             int height = panel3.Height;
             int width = panel3.Width;
             if (myVideo != null)
                 myVideo.Dispose();
-            myVideo = new Video("video/周杰伦-青花瓷.avi");
+            String path = ListOfSong.songList[0].getPath();
+            myVideo = new Video(path);
             myVideo.Owner = panel3;
             panel3.Width = width;
             panel3.Height = height;
-            myVideo.Play();           
-            myVideo.Pause();
+            myVideo.Audio.Volume = volume;
+            if (ListOfSong.songList.Count >= 2)
+                label11.Text = "当前播放："+ListOfSong.songList[0].getName() + "-" + ListOfSong.songList[0].getSinger() + "   下曲：" +
+                               ListOfSong.songList[1].getName() + "-" + ListOfSong.songList[1].getSinger();
+            else
+                label11.Text = "当前播放：" + ListOfSong.songList[0].getName() + "-" + ListOfSong.songList[0].getSinger() + "   下曲：暂无";
+
+            currentSong.setName(ListOfSong.songList[0].getName());
+            currentSong.setSinger(ListOfSong.songList[0].getSinger());
+            currentSong.setPath(ListOfSong.songList[0].getPath());
+
+            //从数据库中把相应歌曲设置为未选择状态
+            String sql = "update ktv_song set status = 0 where name = '" + currentSong.getName() + "' and singer = '" + currentSong.getSinger() + "'";
+            mySqlCommand = Database.getSqlCommand(sql, conn);
+            Database.updateStatus(mySqlCommand);
+
+            ListOfSong.songList.RemoveAt(0);                  //从列表中删除当前歌曲
+
+           
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            if (myVideo != null)
-                myVideo.Audio.Volume = -1000; 
-                if (pathPlayPause == "image/play.ico")
+           
+                
+                if (firstSongPlayed == 0)//表示歌单为空或者第一首歌还未播放
                 {
-                    myVideo.Play();
-                    pathPlayPause = "image/stop.ico";
-                    label3.Text = "暂停";
-                    pictureBox2.BackgroundImage = Image.FromFile(pathPlayPause);
+                    if( ListOfSong.songList.Count != 0)
+                    {
+                          firstSongPlayed = 1;//表示第一首歌已经开始播放且歌单未播放完
+                          playCurrentSong(sender, e);                         
+                          myVideo.Play();
+                          pathPlayPause = "image/stop.ico";
+                          label3.Text = "暂停";
+                          pictureBox2.BackgroundImage = Image.FromFile(pathPlayPause);
+                    }
+                    else 
+                        return;
                 }
                 else
                 {
-                    myVideo.Pause();
-                    pathPlayPause = "image/play.ico";
-                    label3.Text = "播放";
-                    pictureBox2.BackgroundImage = Image.FromFile(pathPlayPause);
+                     if (pathPlayPause == "image/play.ico")
+                     {
+                          myVideo.Play();
+                          pathPlayPause = "image/stop.ico";
+                          label3.Text = "暂停";
+                          pictureBox2.BackgroundImage = Image.FromFile(pathPlayPause);
+                      }
+                     else
+                      {
+                          myVideo.Pause();
+                          pathPlayPause = "image/play.ico";
+                          label3.Text = "播放";
+                          pictureBox2.BackgroundImage = Image.FromFile(pathPlayPause);
+                      }
                 }
+            
                 
         }
 
@@ -103,8 +158,12 @@ namespace KTV
         {
             if (myVideo != null)
             {
-                if(myVideo.Audio.Volume<-100)
-                myVideo.Audio.Volume += 100;
+                if (volume < -100)
+                {
+                    volume += 100;
+                    myVideo.Audio.Volume = volume;
+                }
+                
                 
             }
                
@@ -116,8 +175,12 @@ namespace KTV
         {
             if (myVideo != null)
             {
-                if (myVideo.Audio.Volume >-1400)
-                    myVideo.Audio.Volume -= 100;
+                if (volume > -1400)
+                {
+                    volume -= 100;
+                    myVideo.Audio.Volume = volume;
+                }
+                    
 
             }
         }
@@ -206,30 +269,104 @@ namespace KTV
         
         }
 
-        private void pictureBox7_Click(object sender, EventArgs e)
+        private void pictureBox7_Click(object sender, EventArgs e)   //切歌
         {
-
-            myVideo.Stop();
+            if (pathPlayPause == "image/stop.ico")
+                myVideo.Stop();
 
             myVideo = null;
             if (myVideo != null)
                 myVideo.Dispose();
             myVideo = null;
+
+            if (pathPlayPause == "image/stop.ico")
+            {
+                pathPlayPause = "image/play.ico";
+                label3.Text = "播放";
+                pictureBox2.BackgroundImage = Image.FromFile(pathPlayPause);
+            }
+
+            playNextSong(sender,e);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)  //显示时间
         {
             DateTime dt = DateTime.Now;
             label9.Text = "时间:" + dt.ToString("t") + ":" + dt.Second;
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void timer2_Tick(object sender, EventArgs e)  //显示滚动条
         {
+            if (firstSongPlayed == 0)
+                label11.Text = "当前播放:暂无   下曲：暂无";
+            else
+            {
+                if (ListOfSong.songList.Count >= 1)
+                    label11.Text = "当前播放：" + currentSong.getName() + "-" + currentSong.getSinger() + "   下曲：" +
+                                    ListOfSong.songList[0].getName() + "-" + ListOfSong.songList[0].getSinger();
+                else
+                    label11.Text = "当前播放：" + currentSong.getName() + "-" + currentSong.getSinger() + "   下曲：暂无";
+
+            }
             if (label11.Left < -label11.Width)
-                label11.Left = label11.Width;
+                label11.Left = panel5.Width;
             else
                 label11.Left -= 5;
         }
+
+        private void timer3_Tick(object sender, EventArgs e)   //判断当前歌曲是否播放完毕
+        {
+            if (myVideo != null && pathPlayPause == "image/stop.ico")
+            {
+                latestCurrentPosition = myVideo.CurrentPosition;
+                if (latestCurrentPosition == lastCurrentPosition)//表示当前歌曲播放完成
+                {       
+                    if (myVideo != null)                              //释放当前歌曲资源
+                        myVideo.Dispose();
+                    
+                    playNextSong(sender,e);
+                   
+                }
+                else
+                {
+                    lastCurrentPosition = latestCurrentPosition;
+                }
+                
+            }
+        }
+
+        public void playNextSong(object sender, EventArgs e)   //手动或自动切歌时，播放下一首歌曲
+            {
+                
+
+
+
+                    if (ListOfSong.songList.Count != 0)                    //如果歌曲列表未播放完
+                    {
+                        playCurrentSong(sender, e);                      //播放下一首歌曲
+                        lastCurrentPosition = -1;
+                        latestCurrentPosition = 0;
+                        myVideo.Play();
+                        if (pathPlayPause == "image/play.ico")
+                        {
+                            pathPlayPause = "image/stop.ico";
+                            label3.Text = "暂停";
+                            pictureBox2.BackgroundImage = Image.FromFile(pathPlayPause);
+                        }
+                    }
+                    else                                                //如果歌曲列表已经为空
+                    {
+                        firstSongPlayed = 0;
+                    }
+            
+            }
+
+        private void pictureBox9_Click(object sender, EventArgs e)
+        {
+            ListOfSong.songList.Insert(0,currentSong);
+            playNextSong(sender,e);
+        }
+        
          
 
        

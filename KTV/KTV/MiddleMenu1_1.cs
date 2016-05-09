@@ -21,8 +21,7 @@ namespace KTV
 
         private int preAllCount;
 
-        private DataSet dsall;
-        //private static String mysqlcon = "database=ktv_project;Password=;User ID=root;server=127.0.0.1";
+
         private MySqlConnection conn;
         private MySqlDataAdapter mdap;
         private MySqlCommand mySqlCommand;
