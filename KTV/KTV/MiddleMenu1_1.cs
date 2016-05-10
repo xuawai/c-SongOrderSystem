@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 
 
@@ -206,15 +205,7 @@ namespace KTV
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -223,19 +214,24 @@ namespace KTV
            
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)              //初始化界面，将已选择歌曲的图标置为check.ico
         {
             pictureBox1_Click(sender,e);
             timer1.Enabled = false;
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void timer2_Tick(object sender, EventArgs e)               //当一首歌从列表中被删除，则图标置为uncheck.ico
         {
             if (preAllCount > ListOfSong.songList.Count)
             {
                 preAllCount = ListOfSong.songList.Count;
                 pictureBox1_Click(sender, e);
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     
