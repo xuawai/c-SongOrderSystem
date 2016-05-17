@@ -43,7 +43,7 @@ namespace KTV
         {
             this.BackgroundImage = Image.FromFile("image/MiddleMenu1_background.jpg");
 
-
+            preAllCount = ListOfSong.songList.Count;
 
 
             conn = Database.getMySqlCon();
@@ -187,7 +187,6 @@ namespace KTV
                 //将数据库里相应的歌曲字段置为选中状态
 
                 String sql = "select * from ktv_song where name = '"+name+"' and singer = '"+singer+"'";
-                //String sql = "select * from ktv_song where singer = '周杰伦'";
                 mySqlCommand = Database.getSqlCommand(sql,conn);
                 Database.getResultset(mySqlCommand);
 

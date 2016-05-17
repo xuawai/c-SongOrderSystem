@@ -19,7 +19,6 @@ namespace KTV
         int preAllCount = 0;
 
         private MySqlConnection conn;
-        private MySqlDataAdapter mdap;
         private MySqlCommand mySqlCommand;
 
         DataGridViewImageColumn btnImageTop;

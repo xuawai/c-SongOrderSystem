@@ -37,14 +37,17 @@ namespace KTV
                 {
                     if (reader.HasRows)
                     {
-                       
+                        song.setId(reader.GetInt32(0));
                         song.setName(reader.GetString(1));
                         song.setSinger(reader.GetString(2));
+                        song.setType(reader.GetString(3));
+                        song.setLanguage(reader.GetString(4));
+                        song.setHot(reader.GetInt32(5));
                         song.setPath(reader.GetString(6));
                         if (reader.GetInt32(7) == 1)
                             break;
                         ListOfSong.songList.Add(song);
-                       
+                        ListOfData.addData(song);
                     }
                 }
             }

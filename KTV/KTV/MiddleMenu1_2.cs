@@ -42,6 +42,8 @@ namespace KTV
         {
             this.BackgroundImage = Image.FromFile("image/MiddleMenu1_background.jpg");
 
+            preAllCount = ListOfSong.songList.Count;
+
             conn = Database.getMySqlCon();
             conn.Open();
             mdap = new MySqlDataAdapter("select name,singer from ktv_song", conn);

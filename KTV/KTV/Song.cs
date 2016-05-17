@@ -14,21 +14,21 @@ namespace KTV
         private String language;
         private int hot;
         private String path;
-        private int check;
+        private int status;
+
+        public void setId(int id)
+        {
+            this.id = id;
+        }
+
+        public int getId()
+        {
+            return this.id;
+        }
 
         public void setName(String name)
         {
             this.name = name;
-        }
-
-        public void setSinger(String singer)
-        {
-            this.singer = singer;
-        }
-
-        public void setPath(String path)
-        {
-            this.path = path;
         }
 
         public String getName()
@@ -36,12 +36,49 @@ namespace KTV
             return name;
         }
 
+        public void setSinger(String singer)
+        {
+            this.singer = singer;
+        }
+
         public String getSinger()
         {
             return singer;
         }
 
-        
+        public void setType(String type)
+        {
+            this.type = type;
+        }
+
+        public String getType()
+        {
+            return this.type;
+        }
+
+        public void setLanguage(String language)
+        {
+            this.language = language;
+        }
+
+        public String getLanguage()
+        {
+            return this.language;
+        }
+
+        public void setHot(int hot)
+        {
+            this.hot = hot;
+        }
+
+        public int getHot()
+        {
+            return this.hot;
+        }
+        public void setPath(String path)
+        {
+            this.path = path;
+        }
 
         public String getPath()
         {
