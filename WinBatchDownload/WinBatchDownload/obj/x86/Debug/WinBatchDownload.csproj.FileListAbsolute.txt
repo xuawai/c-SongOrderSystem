@@ -1,0 +1,7 @@
+E:\学习\c#\WinBatchDownload\WinBatchDownload\bin\Debug\WinBatchDownload.exe
+E:\学习\c#\WinBatchDownload\WinBatchDownload\bin\Debug\WinBatchDownload.pdb
+E:\学习\c#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.FrmBatchDownload.resources
+E:\学习\c#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.Properties.Resources.resources
+E:\学习\c#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.csproj.GenerateResource.Cache
+E:\学习\c#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.exe
+E:\学习\c#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.pdb
