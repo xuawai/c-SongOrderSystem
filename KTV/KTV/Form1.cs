@@ -17,8 +17,10 @@ namespace KTV
         private Form middleMenu1;
         private Form middleIndex;
         private Form songToBePlayed;
+        private Form rightBottomIndex;
         private string pathPlayPause;
         private int firstSongPlayed;        //等于零，表示歌单为空或者第一首歌还未播放
+        private bool isrightBottomIndex = true;   //等于真，代表右下panel首次载入
 
         private int volume = -1000;
         private double lastCurrentPosition = -1;
@@ -34,10 +36,13 @@ namespace KTV
             InitializeComponent();
 
             middleIndex = new MiddleIndex();
+            rightBottomIndex = new RightBottomIndex();
             songToBePlayed = new SongToBePlayed();
+            
             Control_Add(middleIndex);
-            Control_Add2(songToBePlayed);
 
+            Control_Add2(rightBottomIndex);
+            
             currentSong = new Song();
 
             conn = Database.getMySqlCon();
@@ -65,6 +70,12 @@ namespace KTV
         {
             middleMenu1 = new MiddleMenu1();
             Control_Add(middleMenu1);
+            if (isrightBottomIndex)
+            {
+                 Control_Add2(songToBePlayed);
+                 isrightBottomIndex = false;
+
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -242,6 +253,7 @@ namespace KTV
             form.Dock = System.Windows.Forms.DockStyle.Fill;				  //设置样式是否填充整个panel
             panel1.Controls.Add(form);		//添加窗体
             form.Show();					  //窗体运行
+            
         }
 
         private void Control_Add2(Form form)
@@ -363,8 +375,11 @@ namespace KTV
 
         private void pictureBox9_Click(object sender, EventArgs e)
         {
-            ListOfSong.songList.Insert(0,currentSong);
-            playNextSong(sender,e);
+            if (currentSong.getName() != null)
+            {
+                ListOfSong.songList.Insert(0, currentSong);
+                playNextSong(sender, e);
+            }
         }
         
          

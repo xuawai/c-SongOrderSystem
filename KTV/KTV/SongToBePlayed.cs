@@ -52,7 +52,7 @@ namespace KTV
 
         private void SongToBePlayed_Load(object sender, EventArgs e)
         {
-            this.BackgroundImage = Image.FromFile("image/MiddleMenu1_background.jpg");
+            this.BackgroundImage = Image.FromFile("image/SongList.jpg");
 
             conn = Database.getMySqlCon();
             conn.Open();
@@ -69,7 +69,7 @@ namespace KTV
 
             btnImageDelete = new DataGridViewImageColumn(false);
             btnImageDelete.Image = Image.FromFile("image/delete.ico");
-            btnImageDelete.HeaderText = "置顶";
+            btnImageDelete.HeaderText = "删除";
             btnImageDelete.Name = "btnImageDelete";
             this.dataGridView1.Columns.Insert(3, btnImageDelete);
 

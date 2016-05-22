@@ -14,11 +14,13 @@ namespace KTV
         public MiddleIndex()
         {
             InitializeComponent();
+            this.Opacity = 0.1;
         }
 
         private void MiddleIndex_Load(object sender, EventArgs e)
         {
-            this.BackgroundImage = Image.FromFile("image/MiddleMenu1_background.jpg");
+            
+            this.BackgroundImage = Image.FromFile("image/MiddleIndex.jpg");
         }
     }
 }

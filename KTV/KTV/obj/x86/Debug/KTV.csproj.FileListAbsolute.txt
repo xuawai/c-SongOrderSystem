@@ -16,3 +16,4 @@ E:\学习\c#\KTV\KTV\obj\x86\Debug\KTV.MiddleMenu1_4.resources
 E:\学习\c#\KTV\KTV\obj\x86\Debug\KTV.MiddleMenu1_5.resources
 E:\学习\c#\KTV\KTV\obj\x86\Debug\KTV.MiddleMenu1_6.resources
 E:\学习\c#\KTV\KTV\obj\x86\Debug\KTV.SongToBePlayed.resources
+E:\学习\c#\KTV\KTV\obj\x86\Debug\KTV.RightBottomIndex.resources

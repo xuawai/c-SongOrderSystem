@@ -41,7 +41,7 @@ namespace KTV
 
         private void MiddleMenu_Load(object sender, EventArgs e)
         {
-            this.BackgroundImage = Image.FromFile("image/MiddleMenu1_background.jpg");
+            this.BackgroundImage = Image.FromFile("image/MiddleIndex.jpg");
 
             preAllCount = ListOfSong.songList.Count;
 
@@ -54,33 +54,33 @@ namespace KTV
             this.dataGridView1.DataSource = ds.Tables["one"].DefaultView;
 
 
-                btnImageEdit = new DataGridViewImageColumn(false);
-                btnImageEdit.Image = Image.FromFile("image/uncheck.ico");                
-                btnImageEdit.HeaderText = "添加";
-                btnImageEdit.Name = "btnImageEdit";
-                this.dataGridView1.Columns.Insert(0, btnImageEdit);
+            btnImageEdit = new DataGridViewImageColumn(false);
+            btnImageEdit.Image = Image.FromFile("image/uncheck.ico");                
+            btnImageEdit.HeaderText = "添加";
+            btnImageEdit.Name = "btnImageEdit";
+            this.dataGridView1.Columns.Insert(0, btnImageEdit);
 
 
                
 
 
-                allCount = dataGridView1.Rows.Count;    //获取数据表中记录的个数
+            allCount = dataGridView1.Rows.Count;    //获取数据表中记录的个数
 
-                pagecount = allCount % pagesize;  
+            pagecount = allCount % pagesize;  
 
                
-                if (pagecount == 0)
-                {
-                    pagecount = allCount / pagesize;
-                }
-                else
-                {
-                    pagecount = allCount / pagesize + 1;
-                }
+            if (pagecount == 0)
+            {
+                pagecount = allCount / pagesize;
+            }
+            else
+            {
+                pagecount = allCount / pagesize + 1;
+            }
 
-                this.label1.Text = "共" + pagecount.ToString() + "页";
+            this.label1.Text = "共" + pagecount.ToString() + "页";
 
-                show(1, pagesize);
+            show(1, pagesize);
                 
                
         }
@@ -104,10 +104,16 @@ namespace KTV
             List<Int32> list = Database.getResultCheck(mySqlCommand);
             for (int i = 0; i < list.Count; i++)
             {
-                if(list[i]==0)
+                if (list[i] == 0)
+                {
                     this.dataGridView1.Rows[i].Cells["btnImageEdit"].Value = Image.FromFile("image/uncheck.ico");
+                     
+                }
                 else
+                {
                     this.dataGridView1.Rows[i].Cells["btnImageEdit"].Value = Image.FromFile("image/check.ico");
+                    
+                }
             }
 
 
@@ -183,16 +189,27 @@ namespace KTV
 
                 name = this.dataGridView1.Rows[RIndex].Cells[1].Value.ToString();
                 singer = this.dataGridView1.Rows[RIndex].Cells[2].Value.ToString();
-                //这里将歌曲加入列表
+                //这里将歌曲hot加一，同时加入列表
                 //将数据库里相应的歌曲字段置为选中状态
 
-                String sql = "select * from ktv_song where name = '"+name+"' and singer = '"+singer+"'";
+                String sql = "select hot,status from ktv_song where name = '" + name + "' and singer = '" + singer + "'";
+                mySqlCommand = Database.getSqlCommand(sql, conn);
+                int hot = Database.getResultHot(mySqlCommand);
+                hot = hot + 1;
+
+                sql = "update ktv_song set hot = " + hot + " where name = '" + name + "' and singer = '" + singer + "'";
+                mySqlCommand = Database.getSqlCommand(sql, conn);
+                Database.updateHot(mySqlCommand);
+
+                sql = "select * from ktv_song where name = '"+name+"' and singer = '"+singer+"'";
                 mySqlCommand = Database.getSqlCommand(sql,conn);
                 Database.getResultset(mySqlCommand);
 
                 sql = "update ktv_song set status = 1 where name = '" + name + "' and singer = '" + singer + "'";
                 mySqlCommand = Database.getSqlCommand(sql, conn);
                 Database.updateStatus(mySqlCommand);
+
+                
 
                 //song.setName(name);
                 //song.setSinger(singer);
@@ -224,11 +241,16 @@ namespace KTV
             if (preAllCount > ListOfSong.songList.Count)
             {
                 preAllCount = ListOfSong.songList.Count;
-                pictureBox1_Click(sender, e);
+                show(Inum, pagesize);
             }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }

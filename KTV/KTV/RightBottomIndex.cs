@@ -9,16 +9,16 @@ using System.Windows.Forms;
 
 namespace KTV
 {
-    public partial class MiddleMenu1_6 : Form
+    public partial class RightBottomIndex : Form
     {
-        public MiddleMenu1_6()
+        public RightBottomIndex()
         {
             InitializeComponent();
         }
 
-        private void MiddleMenu1_6_Load(object sender, EventArgs e)
+        private void RightBottomIndex_Load(object sender, EventArgs e)
         {
-            this.BackgroundImage = Image.FromFile("image/MiddleIndex.jpg");
+            this.BackgroundImage = Image.FromFile("image/SongList.jpg");
         }
     }
 }

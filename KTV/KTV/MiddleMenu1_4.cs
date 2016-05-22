@@ -40,7 +40,7 @@ namespace KTV
 
         private void MiddleMenu1_4_Load_1(object sender, EventArgs e)
         {
-            this.BackgroundImage = Image.FromFile("image/MiddleMenu1_background.jpg");
+            this.BackgroundImage = Image.FromFile("image/MiddleIndex.jpg");
 
             preAllCount = ListOfSong.songList.Count;
 
@@ -171,7 +171,16 @@ namespace KTV
                 name = this.dataGridView1.Rows[RIndex].Cells[1].Value.ToString();
                 singer = this.dataGridView1.Rows[RIndex].Cells[2].Value.ToString();
 
-                String sql = "select * from ktv_song where name = '" + name + "' and singer = '" + singer + "'";
+                String sql = "select hot,status from ktv_song where name = '" + name + "' and singer = '" + singer + "'";
+                mySqlCommand = Database.getSqlCommand(sql, conn);
+                int hot = Database.getResultHot(mySqlCommand);
+                hot = hot + 1;
+
+                sql = "update ktv_song set hot = " + hot + " where name = '" + name + "' and singer = '" + singer + "'";
+                mySqlCommand = Database.getSqlCommand(sql, conn);
+                Database.updateHot(mySqlCommand);
+
+                sql = "select * from ktv_song where name = '" + name + "' and singer = '" + singer + "'";
                 mySqlCommand = Database.getSqlCommand(sql, conn);
                 Database.getResultset(mySqlCommand);
 
@@ -205,7 +214,7 @@ namespace KTV
             if (preAllCount > ListOfSong.songList.Count)
             {
                 preAllCount = ListOfSong.songList.Count;
-                pictureBox1_Click(sender, e);
+                show(Inum, pagesize);
             }
         }
 

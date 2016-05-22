@@ -104,8 +104,8 @@ namespace KTV
 
         private void MiddleMenu1_Load(object sender, EventArgs e)
         {
-            
-            this.BackgroundImage = Image.FromFile("image/MiddleMenu1_background.jpg");
+
+            this.BackgroundImage = Image.FromFile("image/MiddleIndex.jpg");
             
         }
 

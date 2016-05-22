@@ -69,7 +69,7 @@ namespace KTV
             reader = mySqlCommand.ExecuteReader();
 
             List<Int32> list = new List<Int32>();
-            Song song = new Song();
+            
 
             try
             {
@@ -96,6 +96,47 @@ namespace KTV
         }
         //更新歌曲状态，即是否被选择进入播放列表
         public static void updateStatus(MySqlCommand mySqlCommand)
+        {
+            int count = mySqlCommand.ExecuteNonQuery();
+        }
+
+        //得到当前歌曲播放量
+        public static int getResultHot(MySqlCommand mySqlCommand)
+        {
+            MySqlDataReader reader = null;
+
+            reader = mySqlCommand.ExecuteReader();
+
+            int hot = 0;
+            
+
+            try
+            {
+                while (reader.Read())
+                {
+                    if (reader.HasRows)
+                    {
+                        hot = reader.GetInt32(0);
+                        if (reader.GetInt32(1) == 1)
+                            hot = hot - 1;
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                Console.WriteLine("查询失败了！");
+            }
+            finally
+            {
+                reader.Close();
+            }
+            return hot;
+
+        }
+        //更新歌曲播放量，即播放量加一
+        public static void updateHot(MySqlCommand mySqlCommand)
         {
             int count = mySqlCommand.ExecuteNonQuery();
         }
