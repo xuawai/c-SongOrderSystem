@@ -9,7 +9,7 @@ namespace KTV.DBopt
     {
         private static string connString = "";
 
-        public DbConfig()
+        public DBConfig()
         {
             //
             // TODO: 在此处添加构造函数逻辑

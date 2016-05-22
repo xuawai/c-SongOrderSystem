@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.OleDb;
 
 namespace KTV.DBopt
 {
@@ -9,7 +10,7 @@ namespace KTV.DBopt
     {
         private static OleDbConnection conn = null;
 
-        public DbConnection()
+        public DBConnections()
         {
             //
             // TODO: 在此处添加构造函数逻辑
@@ -21,7 +22,7 @@ namespace KTV.DBopt
         {
             try
             {
-                conn = new OleDbConnection(DbConfig.getConnString());
+                conn = new OleDbConnection(DBConfig.getConnString());
             }
             catch (Exception ex)
             {
