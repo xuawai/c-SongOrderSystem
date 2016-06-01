@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MySql.Data.MySqlClient;
+
 namespace KTV
 {
     class Database
@@ -48,6 +49,7 @@ namespace KTV
                             break;
                         ListOfSong.songList.Add(song);
                         ListOfData.addData(song);
+
                     }
                 }
             }
@@ -100,6 +102,40 @@ namespace KTV
             int count = mySqlCommand.ExecuteNonQuery();
         }
 
+        //得到当前歌曲状态
+        public static int getResulStatusForOne(MySqlCommand mySqlCommand)
+        {
+            MySqlDataReader reader = null;
+
+            reader = mySqlCommand.ExecuteReader();
+
+            int status = 0;
+
+
+            try
+            {
+                while (reader.Read())
+                {
+                    if (reader.HasRows)
+                    {
+                        status = reader.GetInt32(0);
+                        
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                Console.WriteLine("查询失败了！");
+            }
+            finally
+            {
+                reader.Close();
+            }
+            return status;
+
+        }
         //得到当前歌曲播放量
         public static int getResultHot(MySqlCommand mySqlCommand)
         {
@@ -139,6 +175,49 @@ namespace KTV
         public static void updateHot(MySqlCommand mySqlCommand)
         {
             int count = mySqlCommand.ExecuteNonQuery();
+        }
+        //得到待推荐的所有可能歌曲
+        public static void getRecomSongs(MySqlCommand mySqlCommand)
+        {
+            MySqlDataReader reader = null;
+
+            reader = mySqlCommand.ExecuteReader();
+
+
+            
+            
+            try
+            {
+                while (reader.Read())
+                {
+                    if (reader.HasRows)
+                    {
+                        Song song = new Song();
+                        song.setId(reader.GetInt32(0));
+                        song.setName(reader.GetString(1));
+                        song.setSinger(reader.GetString(2));
+                        song.setType(reader.GetString(3));
+                        song.setLanguage(reader.GetString(4));
+                        song.setHot(reader.GetInt32(5));
+                        song.setPath(reader.GetString(6));
+                        song.setStatus(reader.GetInt32(7));
+                       
+                        RecomGenerate.allSongs.Add(song);
+                       
+                    }
+                }
+               
+                
+            }
+            catch (Exception)
+            {
+
+                Console.WriteLine("查询失败了！");
+            }
+            finally
+            {
+                reader.Close();
+            }
         }
     }
 }

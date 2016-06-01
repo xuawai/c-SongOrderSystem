@@ -84,5 +84,15 @@ namespace KTV
         {
             return path;
         }
+
+        public void setStatus(int _status)
+        {
+            this.status = _status;
+        }
+
+        public int getStatus()
+        {
+            return this.status;
+        }
     }
 }

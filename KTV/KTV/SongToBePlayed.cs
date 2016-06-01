@@ -136,6 +136,7 @@ namespace KTV
                {
                    DataGridViewRow Row = new DataGridViewRow();
                    int index = dataGridView1.Rows.Add(Row);
+                   dataGridView1.Rows[i].Height = 30;
                    dataGridView1.Rows[i].Cells[0].Value = ListOfSong.songList[startIndex + i].getName();
                    dataGridView1.Rows[i].Cells[1].Value = ListOfSong.songList[startIndex + i].getSinger();
                }
@@ -220,7 +221,7 @@ namespace KTV
                 Database.updateStatus(mySqlCommand);
             }
             //置顶
-            else
+            else if (CIndex == 2)
             {
                 Song song = new Song();
                 song = ListOfSong.songList[index];
