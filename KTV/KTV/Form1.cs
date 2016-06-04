@@ -107,10 +107,10 @@ namespace KTV
             panel3.Height = height;
             myVideo.Audio.Volume = volume;
             if (ListOfSong.songList.Count >= 2)
-                label11.Text = "当前播放："+ListOfSong.songList[0].getName() + "-" + ListOfSong.songList[0].getSinger() + "   下曲：" +
+                label11.Text = "Now："+ListOfSong.songList[0].getName() + "-" + ListOfSong.songList[0].getSinger() + "   Next：" +
                                ListOfSong.songList[1].getName() + "-" + ListOfSong.songList[1].getSinger();
             else
-                label11.Text = "当前播放：" + ListOfSong.songList[0].getName() + "-" + ListOfSong.songList[0].getSinger() + "   下曲：暂无";
+                label11.Text = "None：" + ListOfSong.songList[0].getName() + "-" + ListOfSong.songList[0].getSinger() + "   Next：none";
 
             currentSong.setName(ListOfSong.songList[0].getName());
             currentSong.setSinger(ListOfSong.songList[0].getSinger());
@@ -304,20 +304,20 @@ namespace KTV
         private void timer1_Tick(object sender, EventArgs e)  //显示时间
         {
             DateTime dt = DateTime.Now;
-            label9.Text = "时间:" + dt.ToString("t") + ":" + dt.Second;
+            label9.Text = "Time:" + dt.ToString("t") + ":" + dt.Second;
         }
 
         private void timer2_Tick(object sender, EventArgs e)  //显示滚动条
         {
             if (firstSongPlayed == 0)
-                label11.Text = "当前播放:暂无   下曲：暂无";
+                label11.Text = "Now:none   Next：none";
             else
             {
                 if (ListOfSong.songList.Count >= 1)
-                    label11.Text = "当前播放：" + currentSong.getName() + "-" + currentSong.getSinger() + "   下曲：" +
+                    label11.Text = "Now：" + currentSong.getName() + "-" + currentSong.getSinger() + "   Next：" +
                                     ListOfSong.songList[0].getName() + "-" + ListOfSong.songList[0].getSinger();
                 else
-                    label11.Text = "当前播放：" + currentSong.getName() + "-" + currentSong.getSinger() + "   下曲：暂无";
+                    label11.Text = "Now：" + currentSong.getName() + "-" + currentSong.getSinger() + "   Next：none";
 
             }
             if (label11.Left < -label11.Width)

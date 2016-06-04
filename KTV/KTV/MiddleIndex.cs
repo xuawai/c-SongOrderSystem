@@ -22,5 +22,10 @@ namespace KTV
             
             this.BackgroundImage = Image.FromFile("image/MiddleIndex.jpg");
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

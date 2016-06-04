@@ -76,7 +76,7 @@ namespace KTV
                     pagecount = allCount / pagesize + 1;
                 }
 
-                this.label1.Text = "共" + pagecount.ToString() + "页";
+                this.label1.Text = "Total " + pagecount.ToString();
 
                 show(1, pagesize);
                 
@@ -107,7 +107,7 @@ namespace KTV
 
             list = null;
             ds = null;
-            this.label2.Text = "第" + Inum.ToString() + "页";
+            this.label2.Text = "Page " + Inum.ToString() + "";
         }
 
         //首页
@@ -218,6 +218,7 @@ namespace KTV
             }
         }
 
+       
         
 
 

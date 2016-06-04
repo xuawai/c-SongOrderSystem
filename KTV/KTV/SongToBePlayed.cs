@@ -95,7 +95,7 @@ namespace KTV
                     pagecount = allCount / pagesize + 1;
                 }
 
-                this.label1.Text = "共" + pagecount.ToString() + "页";
+                this.label1.Text = "Total " + pagecount.ToString();
                 if (type == 1)
                     show(pagecount, pagesize);
                 else if (type == 2)
@@ -112,7 +112,8 @@ namespace KTV
             }
             else
             {
-                this.label1.Text = "共0页";
+                this.label1.Text = "Total 0";
+                this.label2.Text = "Page 0";
                 show(1, 0);
             }
          
@@ -145,7 +146,7 @@ namespace KTV
 
 
 
-            this.label2.Text = "第" + Inum.ToString() + "页";
+            this.label2.Text = "Page " + Inum.ToString() + "";
         }
 
               
@@ -155,20 +156,7 @@ namespace KTV
 
         }
 
-        private void linkLabel4_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Inum++;
-            if (Inum <= pagecount)
-            {
-                show(Inum, pagesize);
-            }
-            else
-            {
-                MessageBox.Show("现已是最后一页记录");
-                Inum = pagecount;
-                return;
-            }
-        }
+
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -196,7 +184,20 @@ namespace KTV
                 return;
             }
         }
-
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Inum++;
+            if (Inum <= pagecount)
+            {
+                show(Inum, pagesize);
+            }
+            else
+            {
+                MessageBox.Show("现已是最后一页记录");
+                Inum = pagecount;
+                return;
+            }
+        }
      
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -233,6 +234,15 @@ namespace KTV
             }
         }
 
+       
+
+       
+
+        
+
+       
+
+       
       
 
        

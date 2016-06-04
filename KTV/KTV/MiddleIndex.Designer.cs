@@ -38,9 +38,10 @@
             this.label2.Font = new System.Drawing.Font("宋体", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(189, 81);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(216, 48);
+            this.label2.Size = new System.Drawing.Size(220, 48);
             this.label2.TabIndex = 1;
-            this.label2.Text = "欢迎使用";
+            this.label2.Text = "Welcome!";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // MiddleIndex
             // 

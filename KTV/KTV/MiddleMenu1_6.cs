@@ -24,7 +24,7 @@ namespace KTV
 
         DataGridViewImageColumn btnImageEdit;
 
-
+        private RecomGenerate mrecomGenerate;
 
         public MiddleMenu1_6()
         {
@@ -46,7 +46,14 @@ namespace KTV
             conn.Open();
 
             //推荐歌曲
-            RecomGenerate mrecomGenerate = new RecomGenerate();
+            if (ListOfData.songList.Count > 0)
+                mrecomGenerate = new RecomGenerate();
+            else
+            {
+                label1.Text = "Total 0";
+                label2.Text = "Page 0";
+                return;
+            }
  
      
             btnImageEdit = new DataGridViewImageColumn(false);
@@ -73,7 +80,7 @@ namespace KTV
                 pagecount = allCount / pagesize + 1;
             }
 
-            this.label1.Text = "共" + pagecount.ToString() + "页";
+            this.label1.Text = "Total " + pagecount.ToString();
 
             show(1, pagesize);
 
@@ -116,25 +123,25 @@ namespace KTV
 
             list = null;
             //ds = null;
-            this.label2.Text = "第" + Inum.ToString() + "页";
+            this.label2.Text = "Page " + Inum.ToString();
         }
 
         //首页
-        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Inum = 1;
             show(Inum, pagesize);
         }
 
         //尾页
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel2_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Inum = pagecount;
             show(Inum, pagesize);
         }
 
         //上一页
-        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Inum--;
             if (Inum > 0)
@@ -151,7 +158,7 @@ namespace KTV
 
 
         //下一页
-        private void linkLabel4_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Inum++;
             if (Inum <= pagecount)
@@ -221,6 +228,8 @@ namespace KTV
                 show(Inum, pagesize);
             }
         }
+
+       
 
         
 

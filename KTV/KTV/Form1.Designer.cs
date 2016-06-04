@@ -108,15 +108,16 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(148, 64);
+            this.label4.Location = new System.Drawing.Point(147, 64);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 12);
+            this.label4.Size = new System.Drawing.Size(75, 12);
             this.label4.TabIndex = 6;
-            this.label4.Text = "降低音量";
+            this.label4.Text = "VolumeDown";
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(227, 19);
+            this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
+            this.pictureBox2.Location = new System.Drawing.Point(230, 19);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(34, 35);
@@ -128,16 +129,16 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.Location = new System.Drawing.Point(362, 64);
+            this.label10.Location = new System.Drawing.Point(356, 64);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 12);
+            this.label10.Size = new System.Drawing.Size(47, 12);
             this.label10.TabIndex = 16;
-            this.label10.Text = "重唱";
+            this.label10.Text = "Replay";
             // 
             // pictureBox9
             // 
             this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
-            this.pictureBox9.Location = new System.Drawing.Point(359, 19);
+            this.pictureBox9.Location = new System.Drawing.Point(358, 19);
             this.pictureBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.Size = new System.Drawing.Size(39, 38);
@@ -149,16 +150,16 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label8.Location = new System.Drawing.Point(420, 64);
+            this.label8.Location = new System.Drawing.Point(419, 64);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(57, 12);
+            this.label8.Size = new System.Drawing.Size(47, 12);
             this.label8.TabIndex = 14;
-            this.label8.Text = "呼叫吧台";
+            this.label8.Text = "Update";
             // 
             // pictureBox8
             // 
             this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
-            this.pictureBox8.Location = new System.Drawing.Point(426, 19);
+            this.pictureBox8.Location = new System.Drawing.Point(422, 19);
             this.pictureBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(40, 38);
@@ -171,24 +172,24 @@
             this.label7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label7.Location = new System.Drawing.Point(81, 64);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 12);
+            this.label7.Size = new System.Drawing.Size(61, 12);
             this.label7.TabIndex = 12;
-            this.label7.Text = "升高音量";
+            this.label7.Text = "VolumeUp";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(294, 64);
+            this.label2.Location = new System.Drawing.Point(293, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 12);
+            this.label2.Size = new System.Drawing.Size(47, 12);
             this.label2.TabIndex = 11;
-            this.label2.Text = "切歌";
+            this.label2.Text = "Switch";
             // 
             // pictureBox7
             // 
             this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
-            this.pictureBox7.Location = new System.Drawing.Point(294, 19);
+            this.pictureBox7.Location = new System.Drawing.Point(293, 19);
             this.pictureBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox7.Name = "pictureBox7";
             this.pictureBox7.Size = new System.Drawing.Size(42, 38);
@@ -213,9 +214,9 @@
             this.label6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label6.Location = new System.Drawing.Point(545, 64);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(31, 12);
+            this.label6.Size = new System.Drawing.Size(47, 12);
             this.label6.TabIndex = 8;
-            this.label6.Text = "返回";
+            this.label6.Text = "return";
             // 
             // pictureBox5
             // 
@@ -232,17 +233,17 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(230, 64);
+            this.label3.Location = new System.Drawing.Point(233, 64);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 12);
+            this.label3.Size = new System.Drawing.Size(33, 12);
             this.label3.TabIndex = 5;
-            this.label3.Text = "播放";
+            this.label3.Text = "Play";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // pictureBox3
             // 
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(158, 19);
+            this.pictureBox3.Location = new System.Drawing.Point(163, 19);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(36, 38);
@@ -256,9 +257,9 @@
             this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(27, 64);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 12);
+            this.label1.Size = new System.Drawing.Size(40, 12);
             this.label1.TabIndex = 2;
-            this.label1.Text = "点歌";
+            this.label1.Text = "Order";
             // 
             // pictureBox1
             // 
@@ -323,9 +324,9 @@
             this.label9.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label9.Location = new System.Drawing.Point(512, 14);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(37, 14);
+            this.label9.Size = new System.Drawing.Size(39, 14);
             this.label9.TabIndex = 0;
-            this.label9.Text = "时间";
+            this.label9.Text = "Time";
             this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // panel5
@@ -359,7 +360,7 @@
             this.Font = new System.Drawing.Font("宋体", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
-            this.Text = "KTV点歌系统";
+            this.Text = "KTV System";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
