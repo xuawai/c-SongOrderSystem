@@ -90,6 +90,22 @@ namespace KTV
           
         private void show(int Inum,int pagesize)
         {
+
+            String s = "select count(name) from ktv_song where name like '%" + condition + "%'";
+            mySqlCommand = Database.getSqlCommand(s, conn);
+            allCount = Database.getNumForQuery(mySqlCommand);
+            pagecount = allCount % pagesize;
+            if (pagecount == 0)
+            {
+                pagecount = allCount / pagesize;
+            }
+            else
+            {
+                pagecount = allCount / pagesize + 1;
+            }
+            this.label1.Text = "Total " + pagecount.ToString();
+
+
             
             mdap = new MySqlDataAdapter("select name,singer from ktv_song where name like '%"+condition+"%' order by id limit " + pagesize * (Inum - 1)+","+pagesize, conn);
 
@@ -98,6 +114,9 @@ namespace KTV
             mdap.Fill(ds, "one");
 
             this.dataGridView1.DataSource = ds.Tables["one"].DefaultView;
+
+            
+
 
 
             //在这里遍历一下数据库，根据选中字段，对已经被选择的歌曲，按钮图片做一下改变

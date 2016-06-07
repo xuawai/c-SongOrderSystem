@@ -11,12 +11,12 @@ namespace KTV
         {
             ItemRepre mitemRepre = new ItemRepre();
             //set Cap and List<song>
-            //...
+            //....
             mitemRepre.TrainData();
             this.learn(mitemRepre);
         }
 
-        protected static float[,] tempResult = new float[9, 1];
+        public static float[,] tempResult = new float[RecomGenerate.singerLength+RecomGenerate.typeLength+RecomGenerate.languageLength, 1];
 
         public float[,] gettempResult()
         {
@@ -25,7 +25,7 @@ namespace KTV
 
         public void learn(ItemRepre tempRepre)
         {
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < tempResult.GetLength(0); i++)
                 {
                     float tempAdd = 0;
                     for (int j = 0; j < tempRepre.getRep().GetLength(1); j++)

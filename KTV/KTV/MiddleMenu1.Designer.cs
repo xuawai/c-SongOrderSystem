@@ -65,11 +65,11 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(107, 124);
+            this.label2.Location = new System.Drawing.Point(104, 124);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 14);
+            this.label2.Size = new System.Drawing.Size(39, 14);
             this.label2.TabIndex = 13;
-            this.label2.Text = "歌名";
+            this.label2.Text = "name";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // pictureBox3
@@ -99,11 +99,11 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(278, 124);
+            this.label3.Location = new System.Drawing.Point(266, 124);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 14);
+            this.label3.Size = new System.Drawing.Size(55, 14);
             this.label3.TabIndex = 16;
-            this.label3.Text = "歌手";
+            this.label3.Text = "singer";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
@@ -111,11 +111,11 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(445, 124);
+            this.label4.Location = new System.Drawing.Point(431, 124);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 14);
+            this.label4.Size = new System.Drawing.Size(71, 14);
             this.label4.TabIndex = 17;
-            this.label4.Text = "语种";
+            this.label4.Text = "language";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // pictureBox7
@@ -134,11 +134,11 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(107, 305);
+            this.label7.Location = new System.Drawing.Point(104, 305);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(37, 14);
+            this.label7.Size = new System.Drawing.Size(39, 14);
             this.label7.TabIndex = 19;
-            this.label7.Text = "曲种";
+            this.label7.Text = "type";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // pictureBox6
@@ -168,11 +168,11 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(278, 305);
+            this.label6.Location = new System.Drawing.Point(271, 305);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 14);
+            this.label6.Size = new System.Drawing.Size(39, 14);
             this.label6.TabIndex = 22;
-            this.label6.Text = "排行";
+            this.label6.Text = "rank";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
@@ -180,11 +180,11 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(445, 305);
+            this.label5.Location = new System.Drawing.Point(406, 305);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 14);
+            this.label5.Size = new System.Drawing.Size(119, 14);
             this.label5.TabIndex = 23;
-            this.label5.Text = "新歌";
+            this.label5.Text = "recommendation";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // MiddleMenu1

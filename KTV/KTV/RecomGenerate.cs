@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using MySql.Data.MySqlClient;
-
 
 namespace KTV
 {
@@ -11,25 +11,40 @@ namespace KTV
     {
         public RecomGenerate()
         {
+            clearRecomStatics();
+            allSongs = new List<Song>();
+            allSongsRegardlessOfStatus = new List<Song>();
+            recomSongs = new List<Song>();
             this.getAllSongs();
+            this.setTypeList();
             this.representeAll();
+            ProfileLearn mProfileLearn = new ProfileLearn();
             this.calulateCosines();
             this.getRecoms();
         }
 
-        private static ProfileLearn mProfileLearn = new ProfileLearn();
-        private int recomNum = 1;
+      //  private static ProfileLearn mProfileLearn = new ProfileLearn();
+        private int recomNum = 2;
         
         public static List<Song> allSongs = new List<Song>();
+        public static List<Song> allSongsRegardlessOfStatus = new List<Song>();
         public static List<Song> recomSongs = new List<Song>();
 
-        private float[,] repAll = new float[9,6] ;
-        private float[] cosines = new float[6];
+        public static List<String> singer = new List<String>();
+        public static List<String> type = new List<String>();
+        public static List<String> language = new List<String>();
+        public static int singerLength;
+        public static int typeLength;
+        public static int languageLength;
 
-        private static String[] tempSinger = { "周杰伦", "Gala","a","b","c" };
-        private static String[] tempType = { "ChineseStyle", "rock", "romantic" };
-        private static String[] tempLanguage = { "Chinese", "English" };
 
+        private int[,] repAll ;
+        private float[] cosines ;
+
+        public void setRepAllArray()
+        {
+            repAll = new int[singerLength+typeLength+languageLength,allSongs.Count];
+        }
 
         public void setRecomNum(int _recomNum)
         {
@@ -42,11 +57,57 @@ namespace KTV
             MySqlCommand mySqlCommand;
             conn = Database.getMySqlCon();
             conn.Open();
+
             String sql = "select * from ktv_song where status = 0";
             mySqlCommand = Database.getSqlCommand(sql, conn);
             Database.getRecomSongs(mySqlCommand);
+
+            String sql2 = "select * from ktv_song";
+            mySqlCommand = Database.getSqlCommand(sql2, conn);
+            Database.getAllSongs(mySqlCommand);
+
             conn.Close();
         }
+
+        public void setTypeList()
+        {
+            String temp = null;
+            int i,j;
+            for ( i = 0; i < allSongsRegardlessOfStatus.Count; i++)
+            {
+                temp = allSongsRegardlessOfStatus[i].getSinger();
+                for ( j = 0; j < singer.Count; j++)
+                {
+                    if (singer[j].Equals(temp))
+                        break;
+                }
+                if (j == singer.Count)
+                    singer.Add(temp);
+
+                temp = allSongsRegardlessOfStatus[i].getLanguage();
+                for (j = 0; j < language.Count; j++)
+                {
+                    if (language[j].Equals(temp))
+                        break;
+                }
+                if (j == language.Count)
+                    language.Add(temp);
+
+                temp = allSongsRegardlessOfStatus[i].getType();
+                for (j = 0; j < type.Count; j++)
+                {
+                    if (type[j].Equals(temp))
+                        break;
+                }
+                if (j == type.Count)
+                    type.Add(temp);
+            }
+            singerLength = singer.Count;
+            typeLength = type.Count;
+            languageLength = language.Count;
+
+        }
+
 
         public List<Song> getRecomSongs()
         {
@@ -56,26 +117,28 @@ namespace KTV
         //represent all songs into the float[,];
         public void representeAll()
         {
-            for (int i = 0; i < allSongs.Count; i++)
+            setRepAllArray();
+            cosines = new float[allSongs.Count];
+            int i, j;
+            for (i = 0; i < repAll.GetLength(1); i++)
             {
-                for (int j = 0; j < 5; j++)
+                for (j = 0; j < singerLength; j++)
                 {
-                    if (allSongs[i].getSinger().Equals(tempSinger[j])) repAll[j, i] = 1;
+                    if ((allSongs[i].getSinger()).Equals(RecomGenerate.singer[j])) repAll[j, i] = 1;
                     else repAll[j, i] = 0;
                 }
-                for (int j = 5; j < 7; j++)
+                for (j = singerLength; j < singerLength+typeLength-1; j++)
                 {
-                    if ((allSongs[i].getType()).Equals(tempType[j - 5])) repAll[j, i] = 1;
+                    if ((allSongs[i].getType()).Equals(RecomGenerate.type[j-singerLength])) repAll[j, i] = 1;
                     else repAll[j, i] = 0;
                 }
-                for (int j = 7; j < 9; j++)
+                for (j = singerLength + typeLength; j < singerLength + typeLength+languageLength - 1; j++)
                 {
-                    if ((allSongs[i].getLanguage()).Equals(tempLanguage[j - 7])) repAll[j, i] = 1;
+                    if ((allSongs[i].getLanguage()).Equals(RecomGenerate.language[j-singerLength-typeLength])) repAll[j, i] = 1;
                     else repAll[j, i] = 0;
                 }
             }
         }
-
         public float cosine(float[] A, float[] B) 
         {
             float cos = 0;
@@ -104,17 +167,28 @@ namespace KTV
 
         public void calulateCosines()
         {
-            
-            float[] tempRepAll = new float[9];
-            float[] tempRepRes = new float[9];
-            for(int i = 0; i <9; i++)
+            int arrayLength = singerLength + typeLength + languageLength;
+            float[] tempRepAll = new float[arrayLength];
+            float[] tempRepRes = new float[arrayLength];
+
+            FileStream fs = new FileStream("E:/1.txt", FileMode.Create);
+            StreamWriter sw = new StreamWriter(fs);
+
+   
+             sw.WriteLine("length "+arrayLength );
+             sw.Flush();
+ 
+            for (int i = 0; i < arrayLength; i++)
             {
-                tempRepRes[i] = mProfileLearn.gettempResult()[i, 0];
+                //tempRepRes[i] = mProfileLearn.gettempResult()[i, 0];
+                tempRepRes[i] = ProfileLearn.tempResult[i,0];
+                sw.WriteLine(i+"    "+tempRepRes[i]+"      " +ProfileLearn.tempResult[i,0]);
+                sw.Flush();
             }
             for(int i = 0; i < repAll.GetLength(1); i++)
             {
-                
-                for(int j = 0; j < 9; j++)
+
+                for (int j = 0; j < arrayLength; j++)
                 {
                     tempRepAll[j] = repAll[j, i];
                    
@@ -122,6 +196,10 @@ namespace KTV
                cosines[i] = cosine(tempRepRes,tempRepAll);
               
             }
+            sw.Flush();
+            //关闭流
+            sw.Close();
+            fs.Close();
            
         }
 
@@ -158,7 +236,13 @@ namespace KTV
             }
         }
 
+        public void clearRecomStatics()
+        {
+            RecomGenerate.allSongs = null;
+            RecomGenerate.allSongsRegardlessOfStatus = null;
+            RecomGenerate.recomSongs = null;
 
+        }
 
 
 

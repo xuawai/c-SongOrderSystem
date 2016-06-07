@@ -86,11 +86,14 @@ namespace KTV
           
         private void show(int Inum,int pagesize)
         {
-            
+           
+
             mdap = new MySqlDataAdapter("select name,singer from ktv_song order by hot desc limit " + pagesize * (Inum - 1)+","+pagesize, conn);
             DataSet ds = new DataSet();          
             mdap.Fill(ds, "one");
             this.dataGridView1.DataSource = ds.Tables["one"].DefaultView;
+
+           
 
 
             String sql = "select status from ktv_song order by hot desc limit " + pagesize * (Inum - 1) + "," + pagesize;

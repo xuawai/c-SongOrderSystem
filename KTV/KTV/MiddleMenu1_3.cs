@@ -83,7 +83,21 @@ namespace KTV
           
         private void show(int Inum,int pagesize)
         {
-            
+            String s = "select count(name) from ktv_song where language like '%" + condition + "%'";
+            mySqlCommand = Database.getSqlCommand(s, conn);
+            allCount = Database.getNumForQuery(mySqlCommand);
+            pagecount = allCount % pagesize;
+            if (pagecount == 0)
+            {
+                pagecount = allCount / pagesize;
+            }
+            else
+            {
+                pagecount = allCount / pagesize + 1;
+            }
+            this.label1.Text = "Total " + pagecount.ToString();
+
+
             mdap = new MySqlDataAdapter("select name,singer from ktv_song where language like '%"+condition+"%' order by id limit " + pagesize * (Inum - 1)+","+pagesize, conn);
 
             DataSet ds = new DataSet();  
@@ -91,6 +105,9 @@ namespace KTV
             mdap.Fill(ds, "one");
 
             this.dataGridView1.DataSource = ds.Tables["one"].DefaultView;
+
+
+            
 
 
             String sql = "select status from ktv_song where language like '%" + condition + "%' order by id limit " + pagesize * (Inum - 1) + "," + pagesize;

@@ -2,26 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using MySql.Data.MySqlClient;
 
 namespace KTV
 {
     class ItemRepre
     {
         //capacity[0][1][2] - The Data length of Singer\Type\Language We need to consider in our Representation 
-        private static int[] capacity = { 5, 2, 2 };
+        private static int[] capacity = { RecomGenerate.singerLength, RecomGenerate.typeLength, RecomGenerate.languageLength };
+        public static int arrayLength = capacity[0] + capacity[1] + capacity[2];
 
         protected static List<Song> songs = new List<Song>();
 
-        private static String[] tempSinger = { "周杰伦", "Gala", "a", "b", "c" };
-        private static String[] tempType = { "ChineseStyle", "rock", "romantic" };
-        private static String[] tempLanguage = { "Chinese", "English" };
+        protected static int[,] rep  ;
 
-        protected int[,] rep = new int[9,5] ;
+        public void setRepArray()
+        {
+            rep = new int[arrayLength,songs.Count];
+        }
 
         public int[,] getRep()
         {
-            return this.rep;
+            return ItemRepre.rep;
         }
 
         public void setSongs()
@@ -37,24 +39,28 @@ namespace KTV
             represente();
         }
 
+        
+
         //Todo: 测试成功后用Capacity[i] 替换以下的循环终结值
         public void represente()
         {
-            for (int i = 0; i < songs.Count; i++)
+            setRepArray();
+            int i, j;
+            for (i = 0; i < rep.GetLength(1); i++)
             {
-                for (int j = 0; j < 5; j++)
+                for (j = 0; j < capacity[0]; j++)
                 {
-                    if ((songs[i].getSinger()).Equals(tempSinger[j])) rep[j, i] = 1;
+                    if ((songs[i].getSinger()).Equals(RecomGenerate.singer[j])) rep[j, i] = 1;
                     else rep[j, i] = 0;
                 }
-                for (int j = 5; j < 7; j++)
+                for (j = capacity[0]; j <capacity[0]+capacity[1]-1; j++)
                 {
-                    if ((songs[i].getType()).Equals(tempType[j - 5])) rep[j, i] = 1;
+                    if ((songs[i].getType()).Equals(RecomGenerate.type[j-capacity[0]])) rep[j, i] = 1;
                     else rep[j, i] = 0;
                 }
-                for (int j = 7; j < 9; j++)
+                for (j = capacity[0] + capacity[1]; j < capacity[0]+capacity[1]+capacity[2] - 1; j++)
                 {
-                    if ((songs[i].getLanguage()).Equals(tempLanguage[j - 7])) rep[j, i] = 1;
+                    if ((songs[i].getLanguage()).Equals(RecomGenerate.language[j - capacity[0] - capacity[1]])) rep[j, i] = 1;
                     else rep[j, i] = 0;
                 }
             }
