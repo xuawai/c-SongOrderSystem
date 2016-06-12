@@ -30,8 +30,7 @@ namespace KTV
         private MySqlConnection conn;
         private MySqlCommand mySqlCommand;
         public Form1()
-        {
-           
+        {           
 
             InitializeComponent();
 
@@ -52,11 +51,7 @@ namespace KTV
            
         }
 
-
-
-
         
-
        
 
         private void panel1_Paint(object sender, PaintEventArgs e)

@@ -5,3 +5,5 @@ E:\学习\c#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.Pr
 E:\学习\c#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.csproj.GenerateResource.Cache
 E:\学习\c#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.exe
 E:\学习\c#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.pdb
+I:\MyGitHub\C#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.exe
+I:\MyGitHub\C#\WinBatchDownload\WinBatchDownload\obj\x86\Debug\WinBatchDownload.pdb
