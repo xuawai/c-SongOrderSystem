@@ -36,3 +36,22 @@ I:\MyGitHub\C#\KTV\KTV\obj\x86\Debug\KTV.Properties.Resources.resources
 I:\MyGitHub\C#\KTV\KTV\obj\x86\Debug\KTV.RightBottomIndex.resources
 I:\MyGitHub\C#\KTV\KTV\obj\x86\Debug\KTV.SongToBePlayed.resources
 I:\MyGitHub\C#\KTV\KTV\obj\x86\Debug\KTV.csproj.GenerateResource.Cache
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\bin\Debug\KTV.exe.config
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.exe
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.pdb
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\bin\Debug\KTV.exe
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\bin\Debug\KTV.pdb
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.csprojResolveAssemblyReference.cache
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.Form1.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.MiddleIndex.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.MiddleMenu1.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.MiddleMenu1_1.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.MiddleMenu1_2.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.MiddleMenu1_3.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.MiddleMenu1_4.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.MiddleMenu1_5.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.MiddleMenu1_6.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.Properties.Resources.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.RightBottomIndex.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.SongToBePlayed.resources
+E:\学习\c#\.NET Final Project 徐锦程 范亮 王刚 陈宏俊\KTV\KTV\obj\x86\Debug\KTV.csproj.GenerateResource.Cache

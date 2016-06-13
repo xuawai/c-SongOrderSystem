@@ -11,7 +11,7 @@ namespace KTV
 
         public static MySqlConnection getMySqlCon()
         {
-            String mysqlStr = "database=ktv_project;Password=root;User ID=root;server=127.0.0.1;charset=gbk";
+            String mysqlStr = "database=ktv_project;Password=;User ID=root;server=127.0.0.1;charset=gbk";
             MySqlConnection mysql = new MySqlConnection(mysqlStr);
             return mysql;
         }

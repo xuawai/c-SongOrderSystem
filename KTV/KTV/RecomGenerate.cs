@@ -171,19 +171,13 @@ namespace KTV
             float[] tempRepAll = new float[arrayLength];
             float[] tempRepRes = new float[arrayLength];
 
-            FileStream fs = new FileStream("E:/1.txt", FileMode.Create);
-            StreamWriter sw = new StreamWriter(fs);
-
-   
-             sw.WriteLine("length "+arrayLength );
-             sw.Flush();
+           
  
             for (int i = 0; i < arrayLength; i++)
             {
                 //tempRepRes[i] = mProfileLearn.gettempResult()[i, 0];
                 tempRepRes[i] = ProfileLearn.tempResult[i,0];
-                sw.WriteLine(i+"    "+tempRepRes[i]+"      " +ProfileLearn.tempResult[i,0]);
-                sw.Flush();
+        
             }
             for(int i = 0; i < repAll.GetLength(1); i++)
             {
@@ -196,10 +190,7 @@ namespace KTV
                cosines[i] = cosine(tempRepRes,tempRepAll);
               
             }
-            sw.Flush();
-            //关闭流
-            sw.Close();
-            fs.Close();
+   
            
         }
 
