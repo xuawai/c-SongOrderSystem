@@ -47,6 +47,8 @@ namespace KTV
             conn = Database.getMySqlCon();
             conn.Open();
 
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+
             doubleBuffer();
            
         }
@@ -376,8 +378,14 @@ namespace KTV
                 playNextSong(sender, e);
             }
         }
-        
-         
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            String sql = "update ktv_song set status = 0 where status = 1";
+            mySqlCommand = Database.getSqlCommand(sql, conn);
+            Database.updateStatus(mySqlCommand);
+             
+        } 
 
        
     }
